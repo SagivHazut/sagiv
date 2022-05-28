@@ -1,0 +1,4 @@
+{
+  "jwtKey": "YourPrivateKeyVer3",
+  "mongo": "mongodb://localhost/api"
+}
