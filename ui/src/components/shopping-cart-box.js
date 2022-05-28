@@ -1,17 +1,22 @@
 import React from "react";
 
-import { Badge, Box, Button, Popover } from "@mui/material";
+import {
+  Badge,
+  Box,
+  Button,
+  Paper,
+  Popover,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+} from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+import axios from "axios";
 
 export const ShoppingCartBox = (props) => {
-  const { ShoppingCart } = props;
+  const { ShoppingCart, clearShoppingCart } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const itemsPrice = ShoppingCart.reduce((a, c) => a + 1 * c.price, 0);
@@ -27,6 +32,21 @@ export const ShoppingCartBox = (props) => {
   };
 
   // TODO: add handlePayButtonClick
+  // pay ->
+  // 0. filter unique products DONE
+  // 1. for each item unique products use axios to patch -> uniqueSoldCount
+  // 2. for each item in shopping cart use axios to patch -> SoldCount
+  // 3. clear shopping cart
+  const handlePayButtonClick = () => {
+    // const itemsSet = new Set(ShoppingCart)
+    // ShoppingCart.forEach(item => {
+    //   axios.patch(+1) SoldCount
+    // });
+    // itemsSet.forEach(item => {
+    //   axios.patch(+1) uniqueSoldCount
+    // });
+    clearShoppingCart();
+  };
 
   return (
     <>
@@ -89,6 +109,7 @@ export const ShoppingCartBox = (props) => {
             sx={{ ml: "auto", display: "flex" }}
             variant="contained"
             size="small"
+            onClick={handlePayButtonClick}
           >
             Pay
           </Button>

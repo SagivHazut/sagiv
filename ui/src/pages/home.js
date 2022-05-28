@@ -1,7 +1,8 @@
-import React from "react";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
+
 import { Box, Container, Grid } from "@mui/material";
+import axios from "axios";
 
 import { ShoppingCartBox } from "../components/shopping-cart-box";
 import { ItemCard } from "../components/item-card";
@@ -28,6 +29,10 @@ const Home = () => {
     }
   };
 
+  const clearShoppingCart = () => {
+    setShoppingCart([]);
+  };
+
   const itemsGrid = items.map((item) => (
     <Grid key={item._id} item xs={6} sm={4} md={3}>
       <ItemCard item={item} handleBuyButtonClick={addItemToShoppingCart} />
@@ -47,7 +52,10 @@ const Home = () => {
       <Container maxWidth="lg" sx={{ py: 8 }}>
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Box sx={{ mb: 2, ml: "auto" }}>
-            <ShoppingCartBox ShoppingCart={shoppingCart} />
+            <ShoppingCartBox
+              ShoppingCart={shoppingCart}
+              clearShoppingCart={clearShoppingCart}
+            />
           </Box>
           <Grid container spacing={2}>
             {itemsGrid}
