@@ -1,7 +1,6 @@
 import React from "react";
-import { useState } from "react";
 
-import { Badge, Box, Button, Popover, Typography } from "@mui/material";
+import { Badge, Box, Button, Popover } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 import Table from "@mui/material/Table";
@@ -28,7 +27,6 @@ export const ShoppingCartBox = (props) => {
   };
 
   // TODO: add handlePayButtonClick
-  // TODO: add PopoverContent -> Table
 
   return (
     <>
@@ -71,23 +69,21 @@ export const ShoppingCartBox = (props) => {
             </TableBody>
           </Table>
         </TableContainer>
-        <Typography>
-          <Table sx={{ minWidth: 450 }} size="small" aria-label="a dense table">
-            <TableBody>
-              <TableRow
-                sx={{
-                  "&:last-child td, &:last-child th": { border: 0 },
-                  bgcolor: "grey.400",
-                }}
-              >
-                <TableCell component="th" scope="row">
-                  Total price
-                </TableCell>
-                <TableCell align="right">${itemsPrice}</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </Typography>
+        <Table sx={{ minWidth: 450 }} size="small" aria-label="a dense table">
+          <TableBody>
+            <TableRow
+              sx={{
+                "&:last-child td, &:last-child th": { border: 0 },
+                bgcolor: "grey.400",
+              }}
+            >
+              <TableCell component="th" scope="row">
+                Total price
+              </TableCell>
+              <TableCell align="right">${itemsPrice}</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
         <Box sx={{ m: "5px" }}>
           <Button
             sx={{ ml: "auto", display: "flex" }}

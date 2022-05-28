@@ -1,19 +1,23 @@
 import React from "react";
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { Box, Container, Grid } from "@mui/material";
 
 import { ShoppingCartBox } from "../components/shopping-cart-box";
 import { ItemCard } from "../components/item-card";
 
-// TODO: Delete it
-import { fakeData } from "../fake-data";
-
 const Home = () => {
   const [items, setItems] = useState([]);
   const [shoppingCart, setShoppingCart] = useState([]);
 
-  // TODO: add useEffect
+  useEffect(() => {
+    axios
+      .get("/cards/allCards")
+      .then(({ data }) => {
+        setItems(data);
+      })
+      .catch((err) => {});
+  }, []);
 
   const addItemToShoppingCart = (item) => {
     const currentShoppingCart = [...shoppingCart];
@@ -24,7 +28,7 @@ const Home = () => {
     }
   };
 
-  const itemsGrid = fakeData.map((item) => (
+  const itemsGrid = items.map((item) => (
     <Grid key={item._id} item xs={6} sm={4} md={3}>
       <ItemCard item={item} handleBuyButtonClick={addItemToShoppingCart} />
     </Grid>
