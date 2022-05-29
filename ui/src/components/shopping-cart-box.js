@@ -19,6 +19,10 @@ export const ShoppingCartBox = (props) => {
   const { ShoppingCart, clearShoppingCart } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
 
+  const URL = "http://localhost:8181/api/cards/soldCount/";
+  const URL12 = "http://localhost:8181/api/cards/uniqueSoldCount/";
+  const UR1L = "http://localhost:8181/api/cards/card/";
+
   const itemsPrice = ShoppingCart.reduce((a, c) => a + 1 * c.price, 0);
 
   const handleClick = (event) => {
@@ -31,20 +35,26 @@ export const ShoppingCartBox = (props) => {
     setAnchorEl(null);
   };
 
-  // TODO: add handlePayButtonClick
-  // pay ->
-  // 0. filter unique products DONE
-  // 1. for each item unique products use axios to patch -> uniqueSoldCount
-  // 2. for each item in shopping cart use axios to patch -> SoldCount
-  // 3. clear shopping cart
-  const handlePayButtonClick = () => {
-    // const itemsSet = new Set(ShoppingCart)
-    // ShoppingCart.forEach(item => {
-    //   axios.patch(+1) SoldCount
-    // });
-    // itemsSet.forEach(item => {
-    //   axios.patch(+1) uniqueSoldCount
-    // });
+  const handlePayButtonClick = (item) => {
+    const itemsSet = new Set(ShoppingCart);
+    ShoppingCart.forEach((item) => {
+      axios.get(`${UR1L}${item._id}`).then(({ data }) => {
+        axios.patch(`${URL}${data._id}`, {
+          soldCount: data.soldCount + 1,
+        });
+        console.log(item.soldCount);
+      });
+    });
+
+    itemsSet.forEach((item) => {
+      axios.get(`${UR1L}${item._id}`).then(({ data }) => {
+        axios.patch(`${URL12}${item._id}`, {
+          uniqueSoldCount: item.uniqueSoldCount + 1,
+        });
+        console.log(item.uniqueSoldCount);
+      });
+    });
+
     clearShoppingCart();
   };
 
@@ -75,9 +85,9 @@ export const ShoppingCartBox = (props) => {
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 450 }} size="small" aria-label="a dense table">
             <TableBody>
-              {ShoppingCart.map((item) => (
+              {ShoppingCart.map((item, index) => (
                 <TableRow
-                  key={item._id}
+                  key={index}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">

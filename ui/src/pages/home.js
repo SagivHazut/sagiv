@@ -23,18 +23,16 @@ const Home = () => {
   const addItemToShoppingCart = (item) => {
     const currentShoppingCart = [...shoppingCart];
 
-    if (!currentShoppingCart.includes(item)) {
-      currentShoppingCart.push(item);
-      setShoppingCart(currentShoppingCart);
-    }
+    currentShoppingCart.push(item);
+    setShoppingCart(currentShoppingCart);
   };
 
   const clearShoppingCart = () => {
     setShoppingCart([]);
   };
 
-  const itemsGrid = items.map((item) => (
-    <Grid key={item._id} item xs={6} sm={4} md={3}>
+  const itemsGrid = items.map((item, index) => (
+    <Grid key={index} item xs={6} sm={4} md={3}>
       <ItemCard item={item} handleBuyButtonClick={addItemToShoppingCart} />
     </Grid>
   ));
