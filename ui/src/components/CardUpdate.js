@@ -1,5 +1,6 @@
 import { useState, Fragment } from "react";
 import axios from "axios";
+import { Input, Button } from "@mui/material";
 
 const CardUpdate = (props) => {
   const [title, setTitle] = useState(props.title);
@@ -37,19 +38,17 @@ const CardUpdate = (props) => {
 
   return (
     <Fragment>
-      <div classtitle="wrapper fadeInDown">
-        <h1>Edit Your Item</h1>
+      <div classtitle="wrapper fadeInDown" style={{ textAlign: "center" }}>
+        <h1 style={{ marginTop: "30%" }}>Edit Your Item</h1>
         <div id="formContent">
           <form onSubmit={handleUpdate}>
-            <br />
             <div classtitle="fadeIn first"></div>
-            <br />
             <div classtitle="mb-3">
               <label htmlFor="exampleInputtitle" classtitle="form-label">
-                title
+                Title
               </label>
               <br />
-              <input
+              <Input
                 type="text"
                 classtitle="form-control"
                 id="exampleInputtitle"
@@ -63,7 +62,7 @@ const CardUpdate = (props) => {
                 Description
               </label>
               <br />
-              <input
+              <Input
                 type="text"
                 classtitle="form-control"
                 id="exampleInputDescription1"
@@ -78,7 +77,7 @@ const CardUpdate = (props) => {
                 Price
               </label>
               <br />
-              <input
+              <Input
                 type="number"
                 classtitle="form-control"
                 id="exampleInputPrice1"
@@ -92,7 +91,7 @@ const CardUpdate = (props) => {
                 Image
               </label>
               <br />
-              <input
+              <Input
                 type="text"
                 classtitle="form-control"
                 id="exampleInputImage1"
@@ -103,9 +102,9 @@ const CardUpdate = (props) => {
             </div>
 
             <div style={{ textAlign: "center" }}>
-              <button type="submit" classtitle="btn btn-danger btn-lg">
+              <Button type="submit" classtitle="btn btn-danger btn-lg">
                 Edit
-              </button>
+              </Button>
             </div>
           </form>
           <br />

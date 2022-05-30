@@ -6,11 +6,11 @@ import CardStats from "../components/card-stats";
 
 const Stats = (props) => {
   const [items, setItems] = useState([]);
-  const [soldCount, setSoldCount] = useState(props.soldCount);
-  const [uniqueSoldCount, setUniqueSoldCount] = useState(props.uniqueSoldCount);
+  const [soldCount] = useState(props.soldCount);
+  const [uniqueSoldCount] = useState(props.uniqueSoldCount);
 
   let dataCounter = items.filter((item) => {
-    return item.uniqueSoldCount > 1;
+    return item.uniqueSoldCount > 0;
   });
 
   let dataSoldCount = items.filter((item) => {
@@ -45,13 +45,13 @@ const Stats = (props) => {
     </Grid>
   ));
 
-  console.log(dataDate);
   return (
     <>
       <h1 style={{ margin: "0 auto", textAlign: "center" }}>
         {" "}
         top 5 products{" "}
       </h1>
+
       <Box
         component="main"
         sx={{
@@ -70,6 +70,7 @@ const Stats = (props) => {
           </Box>
         </Container>
       </Box>
+
       <h1 style={{ margin: "0 auto", textAlign: "center" }}>
         {" "}
         5 Unique sold products.{" "}

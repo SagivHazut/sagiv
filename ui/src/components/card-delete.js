@@ -38,7 +38,7 @@ export const CardDelete = (props) => {
         alt="item's image"
       />
       <CardContent>
-        <Typography gutterBottom variant="h6" component="div">
+        <Typography gutterBottom variant="h6" component="div" noWrap>
           {item.title}
         </Typography>
         <Typography variant="body2" color="text.primary" sx={{ pb: 1 }} noWrap>

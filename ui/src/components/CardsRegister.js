@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import { Input, Button } from "@mui/material";
 const CardRegister = () => {
   const navigate = useNavigate();
 
@@ -42,19 +42,26 @@ const CardRegister = () => {
   };
 
   return (
-    <div className="wrapper fadeInDown">
+    <div
+      className="wrapper fadeInDown"
+      style={{
+        margin: "0 auto",
+        textAlign: "center",
+        marginTop: "10%",
+        border: "5px  solid",
+        borderRadius: "20%",
+      }}
+    >
       <h1>Card Maker</h1>
       <div id="formContent">
         <form onSubmit={handleSignup}>
-          <br />
           <div className="fadeIn first"></div>
-          <br />
           <div className="mb-3">
             <label htmlFor="exampleInputName1" className="form-label">
-              title
+              Title
             </label>
             <br />
-            <input
+            <Input
               type="text"
               className="form-control"
               id="exampleInputName1"
@@ -68,7 +75,7 @@ const CardRegister = () => {
               Description
             </label>
             <br />
-            <input
+            <Input
               type="text"
               className="form-control"
               id="exampleInputDescription1"
@@ -80,10 +87,10 @@ const CardRegister = () => {
           </div>
           <div className="mb-3">
             <label htmlFor="exampleInputprice1" className="form-label">
-              price
+              Price
             </label>{" "}
             <br />
-            <input
+            <Input
               type="number"
               className="form-control"
               id="exampleInputprice1"
@@ -97,7 +104,7 @@ const CardRegister = () => {
               Image
             </label>
             <br />
-            <input
+            <Input
               type="text"
               className="form-control"
               id="exampleInputImage1"
@@ -106,14 +113,14 @@ const CardRegister = () => {
               required
             />
           </div>
-
-          <button
+          <br />
+          <Button
             type="submit"
             className="btn btn-danger"
             onSubmit={() => navigate("/home", { replace: true })}
           >
             Create a New Card
-          </button>
+          </Button>
         </form>
 
         <br />
