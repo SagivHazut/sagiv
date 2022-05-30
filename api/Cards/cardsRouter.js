@@ -34,6 +34,19 @@ router.get("/card/:id", async (req, res) => {
   }
 });
 
+router.get("/card", async (req, res) => {
+  try {
+    const cardID = req.query.id;
+    const card = await Card.findOne({ _id: cardID });
+    //const _id = req.params.id;
+    //const card = await Card.findOne({ _id });
+    return res.send(card);
+  } catch (error) {
+    console.log(chalk.redBright(error.message));
+    return res.status(500).send(error.message);
+  }
+});
+
 /********** סעיף 10 **********/
 router.post("/", auth, async (req, res) => {
   try {
@@ -102,9 +115,38 @@ router.delete("/:id", auth, async (req, res) => {
 });
 
 //////////////
+router.patch("/soldCount/:id", auth, async (req, res) => {
+  let card = req.body.soldCount;
+  const filter = {
+    _id: req.params.id,
+  };
+  card = {
+    soldCount: card + 1,
+  };
+
+  const { error } = validateCard(card);
+  if (error) {
+    const errorMessage = error.details[0].message;
+    console.log(errorMessage);
+    return res.status(400).send(errorMessage);
+  }
+
+  card = await Card.findOneAndUpdate(filter, card);
+  if (!card) {
+    console.log(chalk.redBright("No card with this ID in the database!"));
+    return res.status(404).send("No card with this ID in the database!");
+  }
+  card = await Card.findById(card._id);
+  return res.send(card);
+});
+
 router.patch("/:id", auth, async (req, res) => {
   try {
     let card = req.body;
+
+    const filter = {
+      _id: req.params.id,
+    };
     const { error } = validateCard(card);
     if (error) {
       const errorMessage = error.details[0].message;
@@ -112,7 +154,37 @@ router.patch("/:id", auth, async (req, res) => {
       return res.status(400).send(errorMessage);
     }
 
-    card = await Card.findOneAndUpdate(card);
+    card = await Card.findOneAndUpdate(filter, card);
+    if (!card) {
+      console.log(chalk.redBright("No card with this ID in the database!"));
+      return res.status(404).send("No card with this ID in the database!");
+    }
+    card = await Card.findById(card._id);
+    return res.send(card);
+  } catch (error) {
+    console.log(chalk.redBright(error.message));
+    return res.status(500).send(error.message);
+  }
+});
+
+router.patch("/uniqueSoldCount/:id", auth, async (req, res) => {
+  try {
+    let card = req.body.uniqueSoldCount;
+    card = {
+      uniqueSoldCount: card,
+    };
+    const filter = {
+      _id: req.params.id,
+    };
+
+    const { error } = validateCard(card);
+    if (error) {
+      const errorMessage = error.details[0].message;
+      console.log(errorMessage);
+      return res.status(400).send(errorMessage);
+    }
+
+    card = await Card.findOneAndUpdate(filter, card);
     if (!card) {
       console.log(chalk.redBright("No card with this ID in the database!"));
       return res.status(404).send("No card with this ID in the database!");

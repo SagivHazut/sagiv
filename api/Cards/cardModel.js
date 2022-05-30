@@ -30,6 +30,7 @@ const cardSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+
   bizNumber: {
     type: String,
     required: true,
@@ -38,6 +39,10 @@ const cardSchema = new mongoose.Schema({
     unique: true,
   },
   soldCount: {
+    type: Number,
+    default: 0,
+  },
+  uniqueSoldCount: {
     type: Number,
     default: 0,
   },
